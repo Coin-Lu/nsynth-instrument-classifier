@@ -1,38 +1,37 @@
 import os
 import torch
 from torch.utils.data import DataLoader
-from dataset import NSynthDataset
-from model import AudioCNN
+from dataset import NSynthMFCCDataset
+from model import MFCC_CNN
 
-# 使用 GPU 或 CPU
-device = torch.device('cuda' if torch.cuda.is_available() else """ 'cpu' """)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-# 设置路径（自动展开 ~）
+# 设置路径
 root = os.path.expanduser('~/datasets/nsynth')
 train_json = os.path.join(root, 'nsynth-train/examples.json')
 train_audio = os.path.join(root, 'nsynth-train/audio')
 valid_json = os.path.join(root, 'nsynth-valid/examples.json')
 valid_audio = os.path.join(root, 'nsynth-valid/audio')
 
-# 加载训练/验证数据集
-train_set = NSynthDataset(train_json, train_audio)
-valid_set = NSynthDataset(valid_json, valid_audio)
+# 数据加载（使用 MFCC 数据集类）
+train_set = NSynthMFCCDataset(train_json, train_audio)
+valid_set = NSynthMFCCDataset(valid_json, valid_audio)
 train_loader = DataLoader(train_set, batch_size=32, shuffle=True)
-valid_loader = DataLoader(valid_set, batch_size=32, shuffle=False)
+valid_loader = DataLoader(valid_set, batch_size=32)
 
-# 初始化模型和优化器
-model = AudioCNN().to(device)
+# 初始化模型
+model = MFCC_CNN().to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 criterion = torch.nn.CrossEntropyLoss()
 
-# 训练过程
+# 训练循环
 for epoch in range(10):
     model.train()
     total_loss = 0
-    for mel, label in train_loader:
-        mel, label = mel.to(device), label.to(device)
-        output = model(mel)
-        loss = criterion(output, label)
+    for mfcc, label in train_loader:
+        mfcc, label = mfcc.to(device), label.to(device)
+        out = model(mfcc)
+        loss = criterion(out, label)
 
         optimizer.zero_grad()
         loss.backward()
@@ -45,13 +44,13 @@ for epoch in range(10):
     model.eval()
     correct = total = 0
     with torch.no_grad():
-        for mel, label in valid_loader:
-            mel, label = mel.to(device), label.to(device)
-            out = model(mel)
+        for mfcc, label in valid_loader:
+            mfcc, label = mfcc.to(device), label.to(device)
+            out = model(mfcc)
             pred = torch.argmax(out, dim=1)
             correct += (pred == label).sum().item()
             total += label.size(0)
-    acc = correct / total * 100
-    print(f"Validation Accuracy: {acc:.2f}%\n")
+    print(f"Validation Accuracy: {correct / total * 100:.2f}%\n")
 
-    torch.save(model.state_dict(), 'audio_model.pth')
+# 保存模型
+torch.save(model.state_dict(), 'mfcc_audio_model.pth')
