@@ -29,4 +29,5 @@ with torch.no_grad():
         correct += (pred == label).sum().item()
         total += label.size(0)
 
+# 输出
 print(f"Test Accuracy: {correct / total * 100:.2f}%")
