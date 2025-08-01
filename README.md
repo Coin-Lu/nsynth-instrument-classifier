@@ -145,6 +145,26 @@ Test Accuracy: 72.89%
 - [PyTorch Official Docs](https://pytorch.org)
 
 ---
+
+## 🧪 Environment: `audio_dl`
+
+- **Python:** `3.10.18`
+
+### 🔧 Installed Packages
+
+| Package           | Version                          | Build                         | Channel / Source                                                |
+|------------------|----------------------------------|-------------------------------|------------------------------------------------------------------|
+| ffmpeg           | 4.3                              | hf484d3e_0                    | `pytorch`                                                       |
+| libjpeg-turbo    | 2.0.0                            | h9bf148f_0                    | `pytorch`                                                       |
+| numpy            | 1.22.3                           | py310h4ef5377_2               | `https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge` |
+| pytorch          | 2.3.0                            | py3.10_cuda12.1_cudnn8.9.2_0  | `pytorch`                                                       |
+| pytorch-cuda     | 12.1                             | ha16c6d3_6                    | `pytorch`                                                       |
+| pytorch-mutex    | 1.0                              | cuda                          | `pytorch`                                                       |
+| torchaudio       | 2.3.0                            | py310_cu121                   | `pytorch`                                                       |
+| torchtriton      | 2.3.0                            | py310                         | `pytorch`                                                       |
+| torchvision      | 0.18.0                           | py310_cu121                   | `pytorch`                                                       |
+
+---
 ---
 
 # 🎵 使用 MFCC + CNN 进行 NSynth 乐器分类
@@ -291,3 +311,24 @@ Test Accuracy: 72.56%
 - [NSynth 数据集](https://magenta.tensorflow.org/datasets/nsynth)
 - [Torchaudio MFCC 文档](https://pytorch.org/audio/stable/transforms.html#mfcc)
 - [PyTorch 官方文档](https://pytorch.org)
+
+---
+
+## 🧪 环境信息：`audio_dl` 虚拟环境
+
+- **Python 版本：** `3.10.18`
+
+### 🔧 已安装的主要依赖包
+
+| 软件包名称         | 版本号                           | 构建信息                       | 来源渠道 / 镜像地址                                           |
+|------------------|----------------------------------|-------------------------------|--------------------------------------------------------------|
+| ffmpeg           | 4.3                              | hf484d3e_0                    | `pytorch`                                                    |
+| libjpeg-turbo    | 2.0.0                            | h9bf148f_0                    | `pytorch`                                                    |
+| numpy            | 1.22.3                           | py310h4ef5377_2               | [清华镜像 - conda-forge](https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge) |
+| pytorch          | 2.3.0                            | py3.10_cuda12.1_cudnn8.9.2_0  | `pytorch`                                                    |
+| pytorch-cuda     | 12.1                             | ha16c6d3_6                    | `pytorch`                                                    |
+| pytorch-mutex    | 1.0                              | cuda                          | `pytorch`                                                    |
+| torchaudio       | 2.3.0                            | py310_cu121                   | `pytorch`                                                    |
+| torchtriton      | 2.3.0                            | py310                         | `pytorch`                                                    |
+| torchvision      | 0.18.0                           | py310_cu121                   | `pytorch`                                                    |
+
